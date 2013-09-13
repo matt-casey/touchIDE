@@ -1,0 +1,11 @@
+<div ng-show="0 == selectedPage().id" ng-controller="htmlCtrl" class="fillParent">
+	<div class="fileContainer"       ng-include="'partials/file.html'"></div>
+	<div class="componentsContainer" ng-include="'partials/components.html'"></div>
+</div>
+
+<div ng-show="1 == selectedPage().id" ng-controller="cssCtrl" class="fillParent">
+	<div class="fileContainer"       ng-include="'partials/file.html'"></div>
+	<div class="componentsContainer" ng-include="'partials/components.html'"></div>
+</div>
+
+<div ng-show="3 == selectedPage().id" ng-include="'partials/preview.html'" ng-controller="previewCtrl"></div>

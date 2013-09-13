@@ -1,0 +1,47 @@
+
+<div class="ddlContainer fLeft">
+	<div class="projectName open{{show.projectDDL}}" mc-tap="show.projectDDL = !show.projectDDL" ng-repeat="proj in project.list() | filterByFunction:'isSelected' track by $index">
+		{{proj.name}}
+	</div>
+	<ul class="dropDownList standardShadow expand{{show.projectDDL}} animateFast">
+		<li ng-repeat="proj in project.list() track by $index" class="ddlItem fLeft selected{{proj.isSelected()}}">
+			<div mc-tap="proj.select(); show.projectDDL = false;" class="fLeft ddlItemText">
+				{{proj.name | truncate:25}}
+			</div>
+			<div class="fRight closeButton" mc-tap="popup.show = true; popup.item=proj"></div>
+			<div class="fRight duplicateButton" mc-tap="proj.duplicate()"></div>
+		</li>
+	</ul>
+</div>
+
+<div class="ddlContainer fLeft" ng-show="selectedPage().id != 3">
+	<div class="projectName open{{show.fileDDL}}" mc-tap="show.fileDDL = !show.fileDDL" ng-repeat="file in project.files()[selectedPage().name]| filterByFunction:'isSelected' track by $index">
+		{{file.name}}
+	</div>
+	<ul class="dropDownList standardShadow expand{{show.fileDDL}} animateFast">
+		<li ng-repeat="file in project.files()[selectedPage().name] track by $index" class="ddlItem fLeft selected{{file.isSelected()}}">
+			<div mc-tap="file.select(); show.fileDDL = false;" class="fLeft ddlItemText">
+				{{file.name | truncate:25}}
+			</div>
+			<div class="fRight closeButton" mc-tap="popup.show = true; popup.item=file"></div>
+			<div class="fRight duplicateButton" mc-tap="file.duplicate()"></div>
+		</li>
+	</ul>
+</div>
+
+<div class="blackoutPage" ng-show="popup.show">
+	<div class="confirmPopup standardShadow" ng-show="popup.show">
+		<div class="fLeft">
+			Really Delete {{popup.item.name}}?
+		</div>
+		<br>
+		<div class="fLeft button" mc-tap="popup.show = false; popup.item.remove()">YES</div>
+		<div class="fLeft button" mc-tap="popup.show = false;">NO</div>
+	</div>
+</div>
+
+<div class="fRight">
+	<div ng-repeat="pg in page.list() | orderBy" class="tab fLeft disabled{{!pg.enabled}} selected{{pg.isSelected()}}" mc-tap="selectPage(pg.id, pg.enabled)">
+		{{pg.name}}
+	</div>
+</div>
